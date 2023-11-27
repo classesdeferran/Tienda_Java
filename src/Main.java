@@ -1,54 +1,56 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.StringTemplate.STR;
+
 public class Main {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
         ArrayList<Ventas> ventas = new ArrayList<>();
+        ArrayList<String> beneficiosProducto = new ArrayList<>();
+        boolean continuar_programa = true;
 
-        String menu = """
-                1 - Introducir venta
-                2 - Mostrar todas las ventas
-                """;
-        System.out.println(menu);
-        int opcion = input.nextInt();
+        do {
+            System.out.println("\n");
+            String menu = """                    
+                    1 - Introducir venta
+                    2 - Mostrar todas las ventas
+                    3 - Mostrar beneficio actual
+                    4 - Producto con mayor beneficio
+                    """;
+            System.out.println(menu);
+            String opcion = input.next();
 
-        switch (opcion) {
-            case 1:
-                crearVenta(Scanner input, ArrayList ventas);
-                break;
-            case 2:
+            switch (opcion) {
+                case "1":
+                    crearVenta(input, ventas);
+                    break;
+                case "2":
+                    for (int i = 0; i < ventas.size(); i++) {
+                        System.out.println(ventas.get(i));
+                    }
+                    break;
+                case "3":
+                    float total = 0;
+                    for (int i = 0; i < ventas.size(); i++) {
+                        total += ventas.get(i).getBeneficio_venta();
+                    }
+                    System.out.println("Beneficio actual : " + total + "€");
+                    break;
+                case "4":
+                    System.out.println("\n");
+                    break;
+                default:
+                    System.out.println("Operación no reconocida");
+                    continuar_programa = false;
+            }
+        } while (continuar_programa);
 
-                break;
-            default:
+ }
 
-
-        }
-
-        Ventas venta1 = new Ventas("Portátil",
-                2,
-                500, 300,
-                "Bill Gates");
-        Ventas venta2 = new Ventas("Monitor",
-                5, 250, 180, "Elon Musk");
-
-
-
-/*
-        for (int i = 0; i < nuestras_ventas.size(); i++) {
-            System.out.println(nuestras_ventas.get(i));
-            System.out.println("El beneficio fue de " + nuestras_ventas.get(i).getBeneficio_venta() + "€");
-        }
-*/
-
-
-        // System.out.println(venta1);
-        // float beneficio_venta1 = venta1.beneficio_unitario()* venta1.getCantidad_unidades();
-        // System.out.println("Beneficio venta #1: " + beneficio_venta1+ "€");
-    }
-
-    public static void crearVenta(Scanner input, ArrayList ventas) {
+    public static void crearVenta(Scanner input,
+                                  ArrayList ventas) {
         System.out.println("Nombre del producto:");
         String nombre_producto = input.next();
         System.out.println("Cantidad de unidades:");
@@ -57,7 +59,9 @@ public class Main {
         float precio_venta = input.nextFloat();
         System.out.println("Precio de coste:");
         float precio_coste = input.nextFloat();
+        System.out.println("Vendedor:");
         String vendedor = input.next();
+
 
         Ventas venta = new Ventas(
                 nombre_producto,
@@ -65,10 +69,12 @@ public class Main {
                 precio_venta,
                 precio_coste,
                 vendedor
+
                 );
 
         ventas.add(venta);
-
     }
+
+
 
 }
