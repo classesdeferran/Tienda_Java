@@ -1,0 +1,15 @@
+Tienda de productos informáticos
+
+productos:
+    nombre_producto
+    precio_venta
+    precio_coste
+    beneficio_producto
+
+vendedores
+    nombre
+    venta
+
+venta:
+    producto
+    unidades_vendidas
